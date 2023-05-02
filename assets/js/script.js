@@ -13,7 +13,7 @@ var savedTasks = JSON.parse(localStorage.getItem("savedTasks"));
 var currentDay = $("#currentDay")
 
 //set current day with moment and its format function
-currentDay.text(moment().format("dddd MMMM Do"));
+currentDay.text(moment().format("dddd, MMMM Do"));
 
 //initialise the app
 init();
