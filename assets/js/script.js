@@ -2,6 +2,7 @@
 var taskEl = $("#task");
 var table = $(".table")
 var rowEl = $(".row")
+var savedEl = $("#savedNotification")
 
 //array to save tasks in
 var tasks = [];
@@ -23,6 +24,7 @@ setInterval(checkTime,60*1000)
 //create 8 timeblocks, load tasks from local storage, color timeblocks
 function init() {
 
+    savedEl.text("");
     //start hour
     var hour = moment("8 AM", "h A");
     for (i = 0; i < 9; i++) {
@@ -115,5 +117,11 @@ saveButton.on('click', function (event) {
     tasks[row] = task;
     //save the tasks array to local storage
     localStorage.setItem("savedTasks", JSON.stringify(tasks));
+    
+    //show saved notification if the task was not empty
+    if(task != ""){
+        savedEl.text("✅ Appointment added to LocalStorage")
+    }
+    
 })
 
