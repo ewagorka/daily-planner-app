@@ -1,9 +1,12 @@
+//get HTML elements
 var taskEl = $("#task");
 var table = $(".table")
 var rowEl = $(".row")
 
 //array to save tasks in
 var tasks = [];
+
+//get tasks array from local storage
 var savedTasks = JSON.parse(localStorage.getItem("savedTasks"));
 
 //get current day
@@ -12,15 +15,17 @@ var currentDay = $("#currentDay")
 //set current day with moment and its format function
 currentDay.text(moment().format("dddd MMMM Do"));
 
+//initialise the app
 init();
-checkTime();
+//run check time every miute so timeblocks get updated without user refreshing the website
+setInterval(checkTime,60*1000)
 
-//create 8 timeblocks
+//create 8 timeblocks, load tasks from local storage, color timeblocks
 function init() {
 
     //start hour
     var hour = moment("8 AM", "h A");
-    for (i = 0; i < 15; i++) {
+    for (i = 0; i < 9; i++) {
 
         //add one hour
         hour = moment(hour).add(1, "hours");
@@ -51,8 +56,11 @@ function init() {
         tasks = savedTasks;
         loadTasks();
     }
+    //add proper background colours to time blocks
+    checkTime();
 }
 
+//check what time is it and set timeblock's background colour
 function checkTime() {
     //get a number value from current time
     var currentHour = moment().hour();
@@ -76,6 +84,7 @@ function checkTime() {
     })
 }
 
+//load tasks from local storage
 function loadTasks() {
     //start index for tasks array
     var i = 0;
